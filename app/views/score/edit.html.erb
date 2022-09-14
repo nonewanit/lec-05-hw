@@ -1,0 +1,8 @@
+<%= form_with url:"/score/edit", data: {turbo:false}, method: :post do |form| %>
+	<p>edit the score</p>
+	<p>subject name <%= form.text_field :"subject", value:@subject %></p>
+	<p>score <%= form.text_field :"score", value:@score%></p>
+	<%= form.hidden_field :x, value: @ni %>
+	<%= form.submit "save", name: "save" %>
+	<%= form.submit "back", name: "back" %>
+<% end %>

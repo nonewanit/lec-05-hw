@@ -1,0 +1,37 @@
+<%= form_with url:"/main/test", data: {turbo:false}, method: :post do |form| %>
+	<table>
+		<tr>
+			<th></th>
+			<th>Subject</th>
+			<th>Score</th>
+		</tr>
+		<% for i in 1..@no.to_i %>
+			<tr>
+				<td><%= i %></th>
+				<td>
+					<%= form.text_field :"subject#{i}", value:"#{@subjectlist[i-1]}" %>
+				</td>
+				<td>
+					<%= form.text_field :"score#{i}", value:"#{@scorelist[i-1]}" %>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+	<% for i in 1..@no.to_i %>
+		<% if @subjectlist[i-1].blank? && !@subjectlist[i-1].nil? %>
+			<%= form.label "Please enter subject #{i}" %>
+			<br>
+		<% end %>
+		<% if @scorelist[i-1].blank? && !@scorelist[i-1].nil? %>
+			<%= form.label "Please enter score #{i}" %>
+			<br>
+		<% end %>
+		<% if !@scorelist[i-1].blank? && !(Integer(params["score#{i}"]) rescue nil) %>
+			<%= form.label "Please enter integer" %>
+			<br>
+		<% end %>
+	<% end %>
+	<%= form.hidden_field :root, value: false %>
+	<%= form.hidden_field :no, value: @no %>
+	<%= form.submit "Submit" %>
+<% end %>
